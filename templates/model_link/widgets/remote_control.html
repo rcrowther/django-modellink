@@ -1,0 +1,22 @@
+{% include "django/forms/widgets/hidden.html" %}
+
+<div class="modelctrls" {% include "django/forms/widgets/attrs.html" %}>
+    {% if not widget.data %}
+      <p>[ {{ widget.nodata_text }} ]</p>
+    {% else %}
+        {% for model_key, data in widget.data.items %}
+        <ul class="model{% if widget.is_inline %} inline{% endif %}">
+            <ul class="view">
+                {% for fname, fval in data.models.items %}
+                <li class="data-{{ fname }}">{{ fval }}</li>
+                {% endfor %}            
+            </ul>
+            <ul class="ops">
+                {% for name, url in data.urls.items %}
+                <li {% if widget.is_inline %}class="inline"{% endif %}><a href="{{ url }}" class="button">{{ name|capfirst }}</a></li>
+                {% endfor %}
+            </ul>
+        </ul>
+        {% endfor %}            
+    {% endif %}
+</div>

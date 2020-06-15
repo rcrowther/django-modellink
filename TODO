@@ -1,0 +1,39 @@
+x Inline to top?
+
+Add form
+
+Remove delete option/ make dependant on nullable field
+
+x Why no tabular?
+
+Remove admin widget ugliness
+
+Can use adjustable admin/form for inline instead?
+
+auto-fill title?
+
+Add/remove variations (only on our admin form)
+
+
+== Create
+Can create with null, but displaying bold text
+Can't adjust inline fields by view
+Incomplete info  
+- constraint failed: image_image.width
+
+== Delete raise exception. 
+Raises on img
+prob not an admin issue?
+- I/O operation on closed file
+- validation not working in that scenario
+
+If img removed, can change title
+
+Delete removes the review
+
+== Fields
+Two fields to one?
+Unify templates?
+Reduce options on CNTL widget
+Name exclude and fields work.
+Take nodata_text off the block and into widget

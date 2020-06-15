@@ -1,0 +1,52 @@
+/* remote view */
+.modeldata,
+.modeldata .term-definition,
+.modeldata .term-name {
+    display: inline-block;
+}
+
+.modeldata .model {
+    margin: 0;
+}
+
+.modeldata .field-data {
+    padding-right: 2.5em;
+}
+
+.modeldata .term-name {
+    font-weight: bold;
+    padding-right: 2px;
+}
+
+
+
+/* remote ctrl */
+.modelctrls,
+.modelctrls .view,
+.modelctrls .ops {
+    display: inline-block;
+    margin: 0;
+}
+
+.modelctrls .model {
+    margin: 0 0 6px 0;
+    padding: 0 2.5em 0 0;
+}
+
+.modelctrls .view {
+    min-width:260px;
+}
+
+.modelctrls .ops {
+    vertical-align: top;
+}
+
+.modelctrls .ops li {
+    margin-bottom: 3px;
+}
+
+.modelctrls a {
+    letter-spacing: 0.5px;
+    padding: 3px 12px;
+}
+

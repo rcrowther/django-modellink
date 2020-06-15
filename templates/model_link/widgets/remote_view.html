@@ -1,0 +1,18 @@
+{% include "django/forms/widgets/hidden.html" %}
+
+<div class="modeldata" {% include "django/forms/widgets/attrs.html" %}>
+    {% if not widget.data %}
+      <p>[ {{ widget.nodata_text }} ]</p>
+    {% else %}
+        {% for model_key, data in widget.data.items %}
+        <ul class="model{% if widget.is_inline %} inline{% endif %}">
+            {% for fname, fval in data.items %}
+            <li class="field-data">
+                <div class="term-name">{{ fname }}</div>
+                <div class="term-definition">{{ fval }}</div>
+            </li>
+            {% endfor %}            
+        </ul>
+        {% endfor %}            
+    {% endif %}
+</div>
