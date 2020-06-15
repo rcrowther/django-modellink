@@ -33,7 +33,7 @@ class LinkViewWidget(Input):
         provide the urls.
     '''
     input_type = 'hidden'
-    template_name = 'model_link/widgets/remote_view.html'
+    template_name = 'model_link/widgets/view.html'
     data = {}
     related_model = None
     nodata_text = _("Unaccessable")
@@ -100,7 +100,7 @@ class LinkControlWidget(Input):
     # I think rendering URLs belongs here, but conceed it is a faff, 
     # what with admin site and model both required.
     input_type = 'hidden'    
-    template_name = 'model_link/widgets/remote_control.html'
+    template_name = 'model_link/widgets/control.html'
     data = {}
     related_model = None
     nodata_text = _('Unaccessible')

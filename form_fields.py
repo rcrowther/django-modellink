@@ -10,7 +10,6 @@ from django.core.exceptions import ImproperlyConfigured
 from .widgets import LinkViewWidget
 
 
-
                 
 class LinkModelModifier(Field):
     '''
