@@ -161,7 +161,7 @@ class ModelLinkAdmin(ModelAdmin):
         self.exclude = list(self.exclude)
 
         inline_instances = []
-        for field_name in self.linked_inline:
+        for field_name in self.inline_links:
 
             kwargs = {}
             admin_class = None

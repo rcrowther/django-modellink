@@ -45,7 +45,7 @@ ModelLinkAdmin pretends a foreign key is a one-off InlineModelForm. You get a sp
 
     class PageAdmin(ModelLinkAdmin):
         inline_type = 'stacked'
-        linked_inline = [
+        inline_links = [
                           'img',
                           ]
                       
@@ -53,7 +53,7 @@ You can also define the fields on the rendered form,
 
     class PageAdmin(ModelLinkAdmin):
         inline_type = 'stacked'
-        linked_inline = [
+        inline_links = [
                           ('img', {'fields': ['title']}),
                           ]
                           
@@ -64,7 +64,7 @@ I make no claim to the above. An addition,
     class PageAdmin(ModelLinkAdmin):
         inline_type = 'stacked'
         inline_pos = 'top'    
-        linked_inline = [
+        inline_links = [
                           ('img', {'fields': ['title']}),
                           ]
                           
