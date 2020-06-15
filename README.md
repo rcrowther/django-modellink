@@ -11,21 +11,21 @@ In many scenarios, you may hope to replace a simple foreign key with a form for 
 This app contains a few helpers for this scenario,
 
 ## Why the obscure name?
-The names are inconsistent in this area. If you find this module, good for you.
+The names are inconsistent in this area. You found this module, good for you.
  
 ## Install
 Drop the code into a webapp. Declare in installed apps,
 
     INSTALLED_APPS = [
         # added
-        'reverse_inline.apps.ReverseInlineConfig',
+        'model_link.apps.ModelLinkConfig',
         ...
     ]
 
 The code needs to be an app because it declares template and static codebases. It needs no migration.
 
 
-## Django LinkModelAdmin
+## Django ModelLinkAdmin
 Render a foreignkey field as a form.
 
 This is a light rework of [Django Reverse Admin](https://pypi.org/project/django-reverse-admin). It renamed, and adds templating to optionally move the inline forms to the top of the admin, rather than the usual position at bottom.
@@ -39,11 +39,11 @@ Nobodies fault, but too weird for me.
 
 
 ### Use
-Foreign Key pretends a foreign key is a one-off InlineModelForm. You get a special Admin model, with an extra attribute to define the Foreign keys to be rendered,
+ModelLinkAdmin pretends a foreign key is a one-off InlineModelForm. You get a special Admin model, with an extra attribute to define the foreign keys to be rendered,
 
-    from reverse_inline.model_admin import LinkModelAdmin
+    from model_link.model_admin import ModelLinkAdmin
 
-    class PageAdmin(LinkModelAdmin):
+    class PageAdmin(ModelLinkAdmin):
         inline_type = 'stacked'
         linked_inline = [
                           'img',
@@ -51,7 +51,7 @@ Foreign Key pretends a foreign key is a one-off InlineModelForm. You get a speci
                       
 You can also define the fields on the rendered form,
 
-    class PageAdmin(ReverseModelAdmin):
+    class PageAdmin(ModelLinkAdmin):
         inline_type = 'stacked'
         linked_inline = [
                           ('img', {'fields': ['title']}),
@@ -61,7 +61,7 @@ You can also define the fields on the rendered form,
 ### The inline_pos attribute
 I make no claim to the above. An addition,
 
-    class PageAdmin(ReverseModelAdmin):
+    class PageAdmin(ModelLinkAdmin):
         inline_type = 'stacked'
         inline_pos = 'top'    
         linked_inline = [
@@ -78,7 +78,7 @@ Yes, I'd like to target the foreign key inlines so they don't mix with regular i
 Form fields and widgets to display foreign keys.
 
 ### Form Fields
-Are based on a class LinkModelModifier. This passes the foreign key value untouched in a HiddenInput, thus satisfying validation (surely!). At the same time the field retrieves the Foreign key object and pokes it into the supplied widget.
+Are based on a class ModelLinkGet. This passes the foreign key value untouched in a HiddenInput, thus satisfying validation (surely!). At the same time the field retrieves the Foreign key object and pokes it into the supplied widget.
 
 #### Why a field
 And why not a quick override of Django Admin's formfield_for_dbfield() method? Which many coders and their apps do? Because this is more general and simple, at the expense of an extra form element. Your choice.
@@ -86,8 +86,8 @@ And why not a quick override of Django Admin's formfield_for_dbfield() method? W
 #### LinkIntegerField
 This is the form field most people need (most foreign keys link on an integer id key). Replace the form field in an Admin,
 
-    from reverse_inline.form_fields import LinkIntegerField
-    from reverse_inline.widgets import LinkViewWidget, LinkControlWidget
+    from model_link.form_fields import LinkIntegerField
+    from model_link.widgets import LinkViewWidget, LinkControlWidget
 
     class PageAdmin(admin.ModelAdmin):
         ...
@@ -108,17 +108,20 @@ This is the form field most people need (most foreign keys link on an integer id
 For more on the widgets, go down a bit.
 
 #### Field definitions
-RemoteFields requires the database field from a model. This is rather an odd thing to ask for, but should be available or importable. With it, it can retrieve the object a foreign key points to.
+LinkFields require the database field from a model. This is rather an odd thing to ask for, but should be available or importable. With it, the field can retrieve the object a foreign key points to.
 
-RemoteFields require that you define fields and/or exclude parameters, for the same reason as Django requires this on forms. Without the options, you will see nothing. You could also pass fieldsets from Admin data.
+LinkFields require that you define fields and/or exclude parameters, for the same reason as Django requires this on forms. Without the options, you will see nothing. You could also pass fieldsets from Admin data.
 
-#### If your Foreign key is not on integer value...
-Make your own form field using LinkModelModifier. It's only a couple of lines of code.
+#### If your foreign key is not on integer value...
+Make your own form field using ModelLinkGet. It's only a couple of lines of code.
 
 
 ### Widgets
-Two widgets for the field,
+Two widgets for the field. They both have this attribute,
 
+is_inline
+    display in an inline style (default is stacked)
+    
 #### LinkViewWidget
 View some data from the foreign key object. 
 
@@ -127,7 +130,8 @@ A little more flexible than a simple imline. To follow the Books/Author Django e
 #### LinkControlWidget
 View some id data from the foreign key object. with links to Django Admin forms for the attached foreign key model.
 
-An alternative to the ModelChoiceField/Select display. Of course, you cannot change the attached model with this, but you can CRUD edit it.
+An alternative to the ModelChoiceField/Select display. Of course, you cannot change the attached model with this, but you can CRUD edit the existing key.
+
 
 # The end
 Yep, that's it.

@@ -1,14 +1,8 @@
-x Inline to top?
-
 Add form
 
-Remove delete option/ make dependant on nullable field
+[Not tested] Remove delete option/ make dependant on nullable field
 
-x Why no tabular?
-
-Remove admin widget ugliness
-
-Can use adjustable admin/form for inline instead?
+[no] Can use adjustable admin/form for inline instead?
 
 auto-fill title?
 
@@ -32,8 +26,3 @@ If img removed, can change title
 Delete removes the review
 
 == Fields
-Two fields to one?
-Unify templates?
-Reduce options on CNTL widget
-Name exclude and fields work.
-Take nodata_text off the block and into widget

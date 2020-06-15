@@ -11,7 +11,7 @@ from .widgets import LinkViewWidget
 
 
                 
-class LinkModelModifier(Field):
+class ModelLinkGet(Field):
     '''
     A field mixin that offers loading of related model data.
     Compare to forms.models.ModelChoiceField, which offers choices. 
@@ -139,7 +139,7 @@ class LinkModelModifier(Field):
 
 
 
-class LinkIntegerField(LinkModelModifier, IntegerField):
+class IntegerLinkField(ModelLinkGet, IntegerField):
     '''
     A base field that offers access to related models.
     Compare to forms.models.ModelChoiceField, which offers choices. But 

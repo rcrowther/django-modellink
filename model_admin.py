@@ -88,7 +88,7 @@ def reverse_inlineformset_factory(parent_model,
     return FormSet
 
 
-class InlineLinkModelAdmin(InlineModelAdmin):
+class InlineModelLinkAdmin(InlineModelAdmin):
     '''
     Use the name and the help_text of the owning models field to
     render the verbose_name and verbose_name_plural texts.
@@ -142,7 +142,7 @@ class InlineLinkModelAdmin(InlineModelAdmin):
                                              **kwargs)
 
 
-class LinkModelAdmin(ModelAdmin):
+class ModelLinkAdmin(ModelAdmin):
     '''
     Patched ModelAdmin class. The add_view method is overridden to
     allow the reverse inline formsets to be saved before the parent
@@ -177,12 +177,12 @@ class LinkModelAdmin(ModelAdmin):
             if isinstance(field, (OneToOneField, ForeignKey)):
                 if admin_class:
                     admin_class = type(
-                        str('DynamicInlineLinkModelAdmin'),
-                        (admin_class, InlineLinkModelAdmin),
-                        dict(InlineLinkModelAdmin.__dict__),
+                        str('DynamicInlineModelLinkAdmin'),
+                        (admin_class, InlineModelLinkAdmin),
+                        dict(InlineModelLinkAdmin.__dict__),
                     )
                 else:
-                    admin_class = InlineLinkModelAdmin
+                    admin_class = InlineModelLinkAdmin
 
                 name = field.name
                 parent = field.remote_field.model
@@ -259,7 +259,7 @@ class LinkModelAdmin(ModelAdmin):
             elif form_validated and all_valid(formsets):
                 # Here is the modified code.
                 for formset, inline in zip(formsets, self.get_inline_instances(request)):
-                    if not isinstance(inline, InlineLinkModelAdmin):
+                    if not isinstance(inline, InlineModelLinkAdmin):
                         continue
                     # The idea or this piece is coming from https://stackoverflow.com/questions/50910152/inline-formset-returns-empty-list-on-save.
                     # Without this, formset.save() was returning None for forms that
