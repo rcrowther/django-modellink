@@ -6,8 +6,6 @@ Add form
 
 auto-fill title?
 
-Add/remove variations (only on our admin form)
-
 
 == Create
 Can create with null, but displaying bold text
